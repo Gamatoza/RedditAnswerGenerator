@@ -165,7 +165,7 @@ namespace RedditAnswerGenerator
                         Brain.init(fullBrainPath, order: 2);
                         var brain = new Brain(fullBrainPath);
 
-                        ConsoleSpiner spin = new ConsoleSpiner();
+                        var spin = new ConsoleSpiner();
 
                         while (i < Settings.LearnRecycleCount)
                         {
@@ -188,7 +188,10 @@ namespace RedditAnswerGenerator
                             {
                                 Thread.Sleep(2000);
                             }
-                            spin.Turn();
+                            if (logsFlag)
+                            {
+                                spin.Turn();
+                            }
                         }
                         if (logsFlag)
                         {
