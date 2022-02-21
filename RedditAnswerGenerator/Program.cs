@@ -35,25 +35,21 @@ namespace RedditAnswerGenerator
                 switch (param)
                 {
                     case "-s":
-                    case "--s":
                     case "--subreddit":
                         subredditNameFlag = true;
                         break;
 
                     case "-l":
-                    case "--l":
                     case "--learn":
                         learnFlag = true;
                         break;
 
                     case "-a":
-                    case "--a":
                     case "--answer":
                         answerFlag = true;
                         break;
 
                     case "-ro":
-                    case "--ro":
                     case "--removeold":
                         removeOldFlag = true;
                         break;
