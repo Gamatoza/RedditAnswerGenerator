@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using RedditAnswerGenerator.Services.Utils;
+using MoreLinq.Extensions;
 
 namespace RedditAnswerGenerator.Services.LearnModule
 {
@@ -636,7 +637,7 @@ namespace RedditAnswerGenerator.Services.LearnModule
                         parts.Add(" ");
                     }
                 }
-                this.text = String.Join("", parts);
+                this.text = String.Join("", parts.Take(parts.Count-2));
             }
             return this.text;
         }
