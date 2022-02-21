@@ -10,11 +10,11 @@ namespace RedditAnswerGenerator
 {
     public class Program
     {
-        private static string fullBrainPath => prePath + Settings.BrainDefaultPath + subRedditName + ".brain";
-        private static string fullReplyPath => prePath + Settings.ReplyDefaultPath + subRedditName + "_reply.txt";
+        private static string fullBrainPath => (path ?? Settings.BrainDefaultPath) + subRedditName + ".brain";
+        private static string fullReplyPath => (path ?? Settings.ReplyDefaultPath) + subRedditName + "_reply.txt";
         private static string? subRedditName { get; set; }
         private static string? answerString { get; set; }
-        private static string? prePath { get; set; } = string.Empty;
+        private static string? path { get; set; }
         private static int retryCount { get; set; }
         public static int Main(string[] argsv)
         {
@@ -50,7 +50,7 @@ namespace RedditAnswerGenerator
                         break;
 
                     case "-ro":
-                    case "--removeold":
+                    case "--remove-old":
                         removeOldFlag = true;
                         break;
 
@@ -109,11 +109,11 @@ namespace RedditAnswerGenerator
                                 return -1;
                             }
 
-                            prePath = param;
+                            path = param;
 
                             if (param.Last() != '\\')
                             {
-                                prePath += '\\';
+                                path += '\\';
                             }
 
                             prePathFlag = false;
@@ -240,7 +240,7 @@ namespace RedditAnswerGenerator
                             }
                         }
                     }
-                    while (retryFlag && retryCount-- > 0);
+                    while (retryFlag || retryCount-- > 0);
                     
                 }
                 catch (Exception ex)
