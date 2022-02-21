@@ -1,5 +1,5 @@
 # RedditAnswerGenerator
-Cobe used to get answer at some subreddit
+Cobe used to get answer at some subreddit<br>
 Use flags to get answer by console and files
 ## Flags
 |Flag name| Param after | Need to |
