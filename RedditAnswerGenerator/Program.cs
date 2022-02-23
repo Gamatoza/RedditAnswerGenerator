@@ -1,10 +1,16 @@
 ﻿using RedditAnswerGenerator.Services;
 using RedditAnswerGenerator.Services.LearnModule;
 using RedditAnswerGenerator.Services.Utils;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RedditAnswerGenerator
 {
@@ -68,7 +74,6 @@ namespace RedditAnswerGenerator
                         break;
 
                     default:
-
                         if (subredditNameFlag)
                         {
                             if (string.IsNullOrEmpty(param))
@@ -165,8 +170,6 @@ namespace RedditAnswerGenerator
                         Brain.init(fullBrainPath, order: 2);
                         var brain = new Brain(fullBrainPath);
 
-                        var spin = new ConsoleSpiner();
-
                         while (i < Settings.LearnRecycleCount)
                         {
                             var comments = search
@@ -187,10 +190,6 @@ namespace RedditAnswerGenerator
                             else
                             {
                                 Thread.Sleep(2000);
-                            }
-                            if (logsFlag)
-                            {
-                                spin.Turn();
                             }
                         }
                         if (logsFlag)
@@ -269,27 +268,6 @@ namespace RedditAnswerGenerator
                 }
                 catch (Exception)
                 { }
-            }
-        }
-
-        public class ConsoleSpiner
-        {
-            int counter;
-            public ConsoleSpiner()
-            {
-                counter = 0;
-            }
-            public void Turn()
-            {
-                counter++;
-                switch (counter % 4)
-                {
-                    case 0: Console.Write("/"); break;
-                    case 1: Console.Write("-"); break;
-                    case 2: Console.Write("\\"); break;
-                    case 3: Console.Write("|"); break;
-                }
-                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
             }
         }
     }

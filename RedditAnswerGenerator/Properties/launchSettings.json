@@ -3,7 +3,9 @@
     "RedditAnswerGenerator": {
       "commandName": "Project",
       "commandLineArgs": "-s HotOnlyfans --logs --retry -a \"Feynman developed a widely used pictorial representation scheme for the mathematical expressions describing the behavior of subatomic particles, which later became known as Feynman diagrams. During his lifetime, Feynman became one of the best-known scientists in the world. In a 1999 poll of 130 leading physicists worldwide by the British journal Physics World, he was ranked the seventh-greatest physicist of all time.\""
+    },
+    "Docker": {
+      "commandName": "Docker"
     }
-    //-a \"Feynman developed a widely used pictorial representation scheme for the mathematical expressions describing the behavior of subatomic particles, which later became known as Feynman diagrams. During his lifetime, Feynman became one of the best-known scientists in the world. In a 1999 poll of 130 leading physicists worldwide by the British journal Physics World, he was ranked the seventh-greatest physicist of all time.\"
   }
 }

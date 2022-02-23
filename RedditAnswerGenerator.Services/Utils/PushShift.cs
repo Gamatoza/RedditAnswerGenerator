@@ -6,6 +6,10 @@ using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace RedditAnswerGenerator.Services.Utils
 {
@@ -158,7 +162,7 @@ namespace RedditAnswerGenerator.Services.Utils
 
         public List<PushShiftCommentResult> GetRecycleCommentsInfo(int count)
         {
-            List<PushShiftCommentResult> resultList = new();
+            List<PushShiftCommentResult> resultList = new List<PushShiftCommentResult>();
             int i = 0;
             while(i < count)
             {
