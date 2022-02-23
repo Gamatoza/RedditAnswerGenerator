@@ -21,4 +21,4 @@ RUN dotnet publish "RedditAnswerGenerator.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "RedditAnswerGenerator.exe"]
+ENTRYPOINT ["dotnet", "RedditAnswerGenerator.dll"]

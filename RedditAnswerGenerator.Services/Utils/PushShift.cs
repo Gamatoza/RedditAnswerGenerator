@@ -72,14 +72,19 @@ namespace RedditAnswerGenerator.Services.Utils
         private string subRedditSearch => mainUrlPart + "search/submission/?subreddit=" + subRedditNamePart + getSearchParts();
         private string commentSearch => mainUrlPart + "comment/search/?subreddit=" + subRedditNamePart + getSearchParts();
         private string subRedditNamePart;
-        public PushShiftSearch(string reddit)
+        private bool loginning;
+        public PushShiftSearch(string reddit, bool logs = false)
         {
             subRedditNamePart = reddit;
+            loginning = logs;
         }
 
         private List<T> GetJsonResult<T>(string fullUrl)
         {
-            //Log.Info($"pushshift-url: {fullUrl}");
+            if (loginning)
+            {
+                Log.Info($"pushshift-url: {fullUrl}");
+            }
             var client = new RestClient();
             var request = new RestRequest(fullUrl, Method.Get);
             try
@@ -100,11 +105,17 @@ namespace RedditAnswerGenerator.Services.Utils
             }
             catch (ArgumentNullException ex)
             {
-                //Log.Error($"Reddit not found \n{ex.Message}=>{ex.StackTrace}");
+                if (loginning)
+                {
+                    Log.Error($"Reddit not found \n{ex.Message}=>{ex.StackTrace}");
+                }
             }
             catch (Exception ex)
             {
-                //Log.Error($"{ex.Message}=>{ex.StackTrace}");
+                if (loginning)
+                {
+                    Log.Error($"{ex.Message}=>{ex.StackTrace}");
+                }
             }
             
             return new List<T>();
@@ -112,6 +123,7 @@ namespace RedditAnswerGenerator.Services.Utils
         }
         public List<PushShiftRedditResult> GetSubredditInfo()
         {
+            Log.Info("Getting subreddit info");
             var list = GetJsonResult<PushShiftRedditResult>(subRedditSearch);
 
             for (int i = 0; i < list.Count; i++)
@@ -135,6 +147,12 @@ namespace RedditAnswerGenerator.Services.Utils
 
         public List<PushShiftCommentResult> GetCommentsInfo()
         {
+
+            if (loginning)
+            {
+                Log.Info("Getting comments info");
+            }
+
             var list = GetJsonResult<PushShiftCommentResult>(commentSearch);
 
             for (int i = 0; i < list.Count; i++)
@@ -155,6 +173,11 @@ namespace RedditAnswerGenerator.Services.Utils
                 {
                     list.RemoveAt(i--);
                 }
+            }
+
+            if (loginning)
+            {
+                Log.Info($"Comment count on {subRedditNamePart} at {_after}: {list.Count}");
             }
 
             return list;

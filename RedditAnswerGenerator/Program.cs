@@ -16,12 +16,14 @@ namespace RedditAnswerGenerator
 {
     public class Program
     {
+
         private static string fullBrainPath => (path ?? Settings.BrainDefaultPath) + subRedditName + ".brain";
         private static string fullReplyPath => (path ?? Settings.ReplyDefaultPath) + subRedditName + "_reply.txt";
         private static string? subRedditName { get; set; }
         private static string? answerString { get; set; }
         private static string? path { get; set; }
         private static int retryCount { get; set; }
+        private static int commentNeedCount { get; set; }
         public static int Main(string[] argsv)
         {
             Console.Title = "RedditAnswerGenerator";
@@ -34,6 +36,7 @@ namespace RedditAnswerGenerator
             bool prePathFlag = false;
             bool logsFlag = false;
             bool retryFlag = false;
+            bool countFlag = false;
             PushShiftSearch search = null;
 
             foreach (var param in argsv)
@@ -58,6 +61,15 @@ namespace RedditAnswerGenerator
                     case "-ro":
                     case "--remove-old":
                         removeOldFlag = true;
+                        break;
+
+                    case "-ra":
+                    case "--remove-after":
+                        break;
+
+                    case "-c":
+                    case "--count":
+                        countFlag = true;
                         break;
 
                     case "-p":
@@ -86,7 +98,7 @@ namespace RedditAnswerGenerator
                             }
 
                             subRedditName = param;
-                            search = new PushShiftSearch(subRedditName);
+                            search = new PushShiftSearch(subRedditName, logsFlag);
                             subredditNameFlag = false;
                         }
                         else if (answerFlag)
@@ -127,6 +139,11 @@ namespace RedditAnswerGenerator
                         {
                             int.TryParse(param, out var count);
                             retryCount = count;
+                        }
+                        else if (countFlag)
+                        {
+                            int.TryParse(param, out var count);
+                            commentNeedCount = count;
                         }
                         else
                         {
@@ -169,8 +186,8 @@ namespace RedditAnswerGenerator
                         int i = 1;
                         Brain.init(fullBrainPath, order: 2);
                         var brain = new Brain(fullBrainPath);
-
-                        while (i < Settings.LearnRecycleCount)
+                        int totalCount = 0;
+                        while (countFlag ? (totalCount < commentNeedCount) : (i < Settings.LearnRecycleCount))
                         {
                             var comments = search
                                 .AvoidURL()
@@ -191,6 +208,7 @@ namespace RedditAnswerGenerator
                             {
                                 Thread.Sleep(2000);
                             }
+                            totalCount += comments.Count;
                         }
                         if (logsFlag)
                         {
