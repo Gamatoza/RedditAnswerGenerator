@@ -72,16 +72,16 @@ namespace RedditAnswerGenerator.Services.Utils
         private string subRedditSearch => mainUrlPart + "search/submission/?subreddit=" + subRedditNamePart + getSearchParts();
         private string commentSearch => mainUrlPart + "comment/search/?subreddit=" + subRedditNamePart + getSearchParts();
         private string subRedditNamePart;
-        private bool loginning;
+        public bool Loginning { get; set; }
         public PushShiftSearch(string reddit, bool logs = false)
         {
             subRedditNamePart = reddit;
-            loginning = logs;
+            Loginning = logs;
         }
 
         private List<T> GetJsonResult<T>(string fullUrl)
         {
-            if (loginning)
+            if (Loginning)
             {
                 Log.Info($"pushshift-url: {fullUrl}");
             }
@@ -105,14 +105,14 @@ namespace RedditAnswerGenerator.Services.Utils
             }
             catch (ArgumentNullException ex)
             {
-                if (loginning)
+                if (Loginning)
                 {
                     Log.Error($"Reddit not found \n{ex.Message}=>{ex.StackTrace}");
                 }
             }
             catch (Exception ex)
             {
-                if (loginning)
+                if (Loginning)
                 {
                     Log.Error($"{ex.Message}=>{ex.StackTrace}");
                 }
@@ -123,7 +123,11 @@ namespace RedditAnswerGenerator.Services.Utils
         }
         public List<PushShiftRedditResult> GetSubredditInfo()
         {
-            Log.Info("Getting subreddit info");
+            if (Loginning)
+            {
+                Log.Info("Getting subreddit info");
+            }
+
             var list = GetJsonResult<PushShiftRedditResult>(subRedditSearch);
 
             for (int i = 0; i < list.Count; i++)
@@ -148,7 +152,7 @@ namespace RedditAnswerGenerator.Services.Utils
         public List<PushShiftCommentResult> GetCommentsInfo()
         {
 
-            if (loginning)
+            if (Loginning)
             {
                 Log.Info("Getting comments info");
             }
@@ -175,7 +179,7 @@ namespace RedditAnswerGenerator.Services.Utils
                 }
             }
 
-            if (loginning)
+            if (Loginning)
             {
                 Log.Info($"Comment count on {subRedditNamePart} at {_after}: {list.Count}");
             }

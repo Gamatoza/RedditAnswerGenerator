@@ -1,9 +1,11 @@
-﻿using RedditAnswerGenerator.Services;
+﻿using Pastel;
+using RedditAnswerGenerator.Services;
 using RedditAnswerGenerator.Services.LearnModule;
 using RedditAnswerGenerator.Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -43,8 +45,8 @@ namespace RedditAnswerGenerator
             {
                 switch (param)
                 {
-                    case "-s":
-                    case "--subreddit":
+                    case "-n":
+                    case "--name":
                         subredditNameFlag = true;
                         break;
 
@@ -83,6 +85,11 @@ namespace RedditAnswerGenerator
 
                     case "--logs":
                         logsFlag = true;
+
+                        if (search != null)
+                        {
+                            search.Loginning = true;
+                        }
                         break;
 
                     default:
@@ -98,7 +105,7 @@ namespace RedditAnswerGenerator
                             }
 
                             subRedditName = param;
-                            search = new PushShiftSearch(subRedditName, logsFlag);
+                            search = new PushShiftSearch(subRedditName,logsFlag);
                             subredditNameFlag = false;
                         }
                         else if (answerFlag)
@@ -157,13 +164,21 @@ namespace RedditAnswerGenerator
             }
             if (!RedditHelper.CheckSubredditExists(subRedditName))
             {
-                Log.Error("Subreddit is down or");
+                if (logsFlag)
+                {
+                    Log.Error("Subreddit is down or");
+                }
                 return -1;
             }
             if (learnFlag)
             {
                 if (removeOldFlag)
                 {
+                    if (logsFlag)
+                    {
+                        Log.Info($"-ro flag detected, remove old brain file named {subRedditName}.brain");
+                    }
+
                     if (File.Exists(fullBrainPath))
                     {
                         File.Delete(fullBrainPath);
@@ -176,6 +191,7 @@ namespace RedditAnswerGenerator
 
                 if (!File.Exists(fullBrainPath))
                 {
+                    DateTime time = DateTime.Now;
                     try
                     {
                         if(logsFlag)
@@ -198,6 +214,7 @@ namespace RedditAnswerGenerator
                                 .LimitLength(Settings.CommentLengthMin, Settings.CommentLengthMax)
                                 .RemoveCharacters('\'', '`', '’')
                                 .RemoveUnicodeCharacters()
+                                .Distinct()
                                 .Select(item => item.body).ToList();
                             if (comments != null)
                             {
@@ -209,10 +226,15 @@ namespace RedditAnswerGenerator
                                 Thread.Sleep(2000);
                             }
                             totalCount += comments.Count;
+                            if (logsFlag)
+                            {
+                                Log.Info($"Comment after settings {comments.Count}, count left to: {commentNeedCount - totalCount}");
+                            }
                         }
                         if (logsFlag)
                         {
-                            Log.Info($"Learn ended! File {subRedditName}.brain created!");
+                            Log.Info($"Learn ended! File {subRedditName}.brain created! Total commentary count {totalCount}");
+                            Log.Info($"Total time spend: {(DateTime.Now - time).ToString().Pastel(Color.Coral)}");
                         }
                     }
                     catch (Exception ex)
