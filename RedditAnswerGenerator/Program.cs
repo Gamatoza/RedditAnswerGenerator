@@ -162,6 +162,7 @@ namespace RedditAnswerGenerator
                         break;
                 }
             }
+
             if (!RedditHelper.CheckSubredditExists(subRedditName))
             {
                 if (logsFlag)
@@ -170,6 +171,7 @@ namespace RedditAnswerGenerator
                 }
                 return -1;
             }
+
             if (learnFlag)
             {
                 if (removeOldFlag)
