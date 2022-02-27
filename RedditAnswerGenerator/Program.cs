@@ -19,8 +19,8 @@ namespace RedditAnswerGenerator
     public class Program
     {
 
-        private static string fullBrainPath => (path ?? Settings.BrainDefaultPath) + subRedditName + ".brain";
-        private static string fullReplyPath => (path ?? Settings.ReplyDefaultPath) + subRedditName + "_reply.txt";
+        private static string fullBrainPath => (path ?? GeneratorSettings.BrainDefaultPath) + subRedditName + ".brain";
+        private static string fullReplyPath => (path ?? GeneratorSettings.ReplyDefaultPath) + subRedditName + "_reply.txt";
         private static string? subRedditName { get; set; }
         private static string? answerString { get; set; }
         private static string? path { get; set; }
@@ -29,8 +29,8 @@ namespace RedditAnswerGenerator
         public static int Main(string[] argsv)
         {
             Console.Title = "RedditAnswerGenerator";
-            Directory.CreateDirectory(Settings.BrainDefaultPath);
-            Directory.CreateDirectory(Settings.ReplyDefaultPath);
+            Directory.CreateDirectory(GeneratorSettings.BrainDefaultPath);
+            Directory.CreateDirectory(GeneratorSettings.ReplyDefaultPath);
             bool subredditNameFlag = false;
             bool learnFlag = false;
             bool answerFlag = false;
@@ -202,18 +202,18 @@ namespace RedditAnswerGenerator
                         }
 
                         int i = 1;
-                        Brain.init(fullBrainPath, order: 2);
+                        Brain.Init(fullBrainPath, order: 2);
                         var brain = new Brain(fullBrainPath);
                         int totalCount = 0;
-                        while (countFlag ? (totalCount < commentNeedCount) : (i < Settings.LearnRecycleCount))
+                        while (countFlag ? (totalCount < commentNeedCount) : (i < GeneratorSettings.LearnRecycleCount))
                         {
                             var comments = search
                                 .AvoidURL()
                                 .AvoidDeleted()
-                                .Size(Settings.LearnCommentSize)
+                                .Size(GeneratorSettings.LearnCommentSize)
                                 .After(i + "d")
                                 .GetCommentsInfo()
-                                .LimitLength(Settings.CommentLengthMin, Settings.CommentLengthMax)
+                                .LimitLength(GeneratorSettings.CommentLengthMin, GeneratorSettings.CommentLengthMax)
                                 .RemoveCharacters('\'', '`', '’')
                                 .RemoveUnicodeCharacters()
                                 .Distinct()

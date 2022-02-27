@@ -19,7 +19,7 @@ namespace RedditAnswerGenerator.Tests
             {
                 File.Delete(TEST_BRAIN_FILE);
             }
-            Brain.init(TEST_BRAIN_FILE, order: 2);
+            Brain.Init(TEST_BRAIN_FILE, order: 2);
             this._brain = new Brain(TEST_BRAIN_FILE);
         }
 

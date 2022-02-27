@@ -76,5 +76,10 @@ namespace RedditAnswerGenerator.Services.Extensions
         {
             return (Encoding.UTF8.GetByteCount(input) == input.Length);
         }
+
+        public static string RemoveUnicodeCharacters(this string obj)
+        {
+            return Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(obj));
+        }
     }
 }

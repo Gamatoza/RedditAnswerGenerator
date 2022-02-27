@@ -24,7 +24,7 @@ namespace RedditAnswerGenerator.Tests
         [Test]
         public void testExpandContexts()
         {
-            Brain.init(TEST_BRAIN_FILE, order: 2);
+            Brain.Init(TEST_BRAIN_FILE, order: 2);
             var brain = new Brain(TEST_BRAIN_FILE);
             var tokens = new List<string>() {
                 "this",
@@ -75,7 +75,7 @@ namespace RedditAnswerGenerator.Tests
         [Test]
         public void testExpandGraph()
         {
-            Brain.init(TEST_BRAIN_FILE, order: 2);
+            Brain.Init(TEST_BRAIN_FILE, order: 2);
             var brain = new Brain(TEST_BRAIN_FILE);
             var tokens = new List<string> {
                 "this",
@@ -103,7 +103,7 @@ namespace RedditAnswerGenerator.Tests
         [Test]
         public void testLearn()
         {
-            Brain.init(TEST_BRAIN_FILE, order: 2);
+            Brain.Init(TEST_BRAIN_FILE, order: 2);
             var brain = new Brain(TEST_BRAIN_FILE);
 
             brain.learn("this is a test");
@@ -113,7 +113,7 @@ namespace RedditAnswerGenerator.Tests
         [Test]
         public void testLearnStems()
         {
-            Brain.init(TEST_BRAIN_FILE, order: 2);
+            Brain.Init(TEST_BRAIN_FILE, order: 2);
             var brain = new Brain(TEST_BRAIN_FILE);
             brain.set_stemmer("english");
 

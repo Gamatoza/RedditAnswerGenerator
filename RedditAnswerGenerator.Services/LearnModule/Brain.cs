@@ -69,7 +69,7 @@ namespace RedditAnswerGenerator.Services.LearnModule
                 Serilog.Log.Information("File does not exist. Assuming defaults.");
 
                 // File gets created by SQLite
-                init(filename);
+                Init(filename);
             }
             //using (var trace_us("Brain.connect_us"))
             //{
@@ -570,7 +570,7 @@ namespace RedditAnswerGenerator.Services.LearnModule
         // order -- Order of the forward/reverse Markov chains (INTEGER)
         // tokenizer -- One of Cobe, MegaHAL (default Cobe). See documentation
         //              for cobe.tokenizers for details. (string)
-        public static void init(string filename, int order = 3, string tokenizer = null)
+        public static void Init(string filename, int order = 3, string tokenizer = null)
         {
             Serilog.Log.Information(String.Format("Initializing a cobe brain: {0}", filename));
             if (tokenizer == null)

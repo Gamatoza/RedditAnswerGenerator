@@ -24,7 +24,7 @@ namespace RedditAnswerGenerator.Tests
         [Test]
         public void testInit()
         {
-            Brain.init(TEST_BRAIN_FILE);
+            Brain.Init(TEST_BRAIN_FILE);
             Assert.IsTrue(File.Exists(TEST_BRAIN_FILE), "missing brain file after init");
 
             var brain = new Brain(TEST_BRAIN_FILE);
@@ -36,7 +36,7 @@ namespace RedditAnswerGenerator.Tests
         public void testInitWithOrder()
         {
             var order = 2;
-            Brain.init(TEST_BRAIN_FILE, order: order);
+            Brain.Init(TEST_BRAIN_FILE, order: order);
             var brain = new Brain(TEST_BRAIN_FILE);
             Assert.AreEqual(order, brain.order);
         }
@@ -44,7 +44,7 @@ namespace RedditAnswerGenerator.Tests
         [Test]
         public void testVersion()
         {
-            Brain.init(TEST_BRAIN_FILE);
+            Brain.Init(TEST_BRAIN_FILE);
             var brain = new Brain(TEST_BRAIN_FILE);
             Assert.AreEqual("2", brain.graph.get_info_text("version"));
         }
@@ -52,7 +52,7 @@ namespace RedditAnswerGenerator.Tests
         [Test]
         public void testEmptyReply()
         {
-            Brain.init(TEST_BRAIN_FILE);
+            Brain.Init(TEST_BRAIN_FILE);
             var brain = new Brain(TEST_BRAIN_FILE);
             Assert.IsTrue(!string.IsNullOrEmpty(brain.reply("")));
         }
@@ -60,7 +60,7 @@ namespace RedditAnswerGenerator.Tests
         [Test]
         public void testWrongVersion()
         {
-            Brain.init(TEST_BRAIN_FILE);
+            Brain.Init(TEST_BRAIN_FILE);
             // manually change the brain version to 1
             var brain = new Brain(TEST_BRAIN_FILE);
             brain.graph.set_info_text("version", "1");
@@ -80,7 +80,7 @@ namespace RedditAnswerGenerator.Tests
         public void testInitWithTokenizer()
         {
             var tokenizer = "MegaHAL";
-            Brain.init(TEST_BRAIN_FILE, order: 2, tokenizer: tokenizer);
+            Brain.Init(TEST_BRAIN_FILE, order: 2, tokenizer: tokenizer);
             var brain = new Brain(TEST_BRAIN_FILE);
             Assert.IsTrue(brain.tokenizer is MegaHALTokenizer);
         }
@@ -89,7 +89,7 @@ namespace RedditAnswerGenerator.Tests
         public void testInfoText()
         {
             var order = 2;
-            Brain.init(TEST_BRAIN_FILE, order: order);
+            Brain.Init(TEST_BRAIN_FILE, order: order);
             var brain = new Brain(TEST_BRAIN_FILE);
             var db = brain.graph;
             var key = "test_text";

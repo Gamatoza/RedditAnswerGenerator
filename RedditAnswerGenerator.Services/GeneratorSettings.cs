@@ -2,10 +2,10 @@
 
 namespace RedditAnswerGenerator.Services
 {
-    public static class Settings
+    public static class GeneratorSettings
     {
         private static IConfiguration configuration { get; set; }
-        static Settings()
+        static GeneratorSettings()
         {
             configuration = new ConfigurationBuilder()
                 .AddJsonFile("settings.json")
