@@ -84,6 +84,7 @@ namespace RedditAnswerGenerator.Services
         delegate bool Condition();
         public async Task<bool> LearnAsync(LearnMode mode, int comparator, bool rewriteBrains = false)
         {
+
             if (rewriteBrains && File.Exists(FullBrainPath))
             {
                 Log.Info($"Remove old brain file named {SubRedditName}.brain");
