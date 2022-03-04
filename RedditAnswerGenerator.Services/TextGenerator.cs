@@ -25,7 +25,7 @@ namespace RedditAnswerGenerator.Services
         #endregion
         public TextGenerator (string subReddit)
         {
-            pushShift = new PushShiftSearch(subReddit);
+            pushShift = new PushShiftSearch(RedditHelper.GetSubredditName(subReddit));
             SubRedditName = subReddit;
             logger = new Logger(subReddit);
         }

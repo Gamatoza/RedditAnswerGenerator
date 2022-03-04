@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RedditAnswerGenerator.Services.Utils
@@ -35,6 +36,25 @@ namespace RedditAnswerGenerator.Services.Utils
             }
 
             return true;
+        }
+
+        public static string GetSubredditName(string match)
+        {
+            string Name;
+            Regex regex = new Regex(@"\/?r\/.\w*\/?");
+            if (regex.IsMatch(match))
+            {
+                Name = regex.Match(match).Value.Replace("/r/", "");
+                if (string.Join("", Name.Take(2)).Equals("r/"))
+                    Name = string.Join("", Name.Skip(2));
+                Name = Name.Replace("//", "/").Replace("/", "");
+                Name = Name.ToLower();
+            }
+            else
+            {
+                Name = match;
+            }
+            return Name;
         }
     }
 }
