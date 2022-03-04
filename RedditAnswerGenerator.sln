@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditAnswerGenerator.Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedditAnswerGenerator.Tests", "RedditAnswerGenerator.Tests\RedditAnswerGenerator.Tests.csproj", "{8FE393A9-F645-4E70-B9EA-159B9F0DE492}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultyGenerator", "MultyGenerator\MultyGenerator.csproj", "{DEAAD7D2-0579-41AE-A940-AC69F04599B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8FE393A9-F645-4E70-B9EA-159B9F0DE492}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FE393A9-F645-4E70-B9EA-159B9F0DE492}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FE393A9-F645-4E70-B9EA-159B9F0DE492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEAAD7D2-0579-41AE-A940-AC69F04599B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEAAD7D2-0579-41AE-A940-AC69F04599B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEAAD7D2-0579-41AE-A940-AC69F04599B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEAAD7D2-0579-41AE-A940-AC69F04599B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

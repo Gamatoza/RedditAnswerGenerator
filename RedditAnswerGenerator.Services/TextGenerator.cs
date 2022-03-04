@@ -21,11 +21,13 @@ namespace RedditAnswerGenerator.Services
         private string? SubRedditName { get; set; }
         public string? OutputPath { get; set; }
         private PushShiftSearch pushShift { get; set; }
+        private Logger logger;
         #endregion
         public TextGenerator (string subReddit)
         {
             pushShift = new PushShiftSearch(subReddit);
             SubRedditName = subReddit;
+            logger = new Logger(subReddit);
         }
 
         public bool IsBrainExists() => File.Exists(FullBrainPath);
@@ -39,11 +41,11 @@ namespace RedditAnswerGenerator.Services
 
                 if (!textToAnswer.IsUnicode())
                 {
-                    Log.Warning("Text not on formate unicode, rebuild");
+                    logger.Warning("Text not on formate unicode, rebuild");
                     textToAnswer = textToAnswer.RemoveUnicodeCharacters();
                 }
 
-                Log.Action("Getting answer...");
+                logger.Action("Getting answer...");
 
                 do
                 {
@@ -63,46 +65,46 @@ namespace RedditAnswerGenerator.Services
                             continue;
                         }
 
-                        Log.Info("Answer found!");
+                        logger.Info("Answer found!");
                         break;
                     }
                     catch (Exception ex)
                     {
-                        Log.Warning("Answer not found!");
-                        Log.Error(ex);
+                        logger.Warning("Answer not found!");
+                        logger.Error(ex);
                     }
                 }
                 while (retryCount-- > 0);
             }
             else
             {
-                Log.Warning("Answer not found!");
+                logger.Warning("Answer not found!");
             }
             return reply;
         }
 
         delegate bool Condition();
-        public async Task<bool> LearnAsync(LearnMode mode, int comparator, bool rewriteBrains = false)
+        public async Task<bool> LearnAsync(LearnMode mode, long comparator, bool rewriteBrains = false)
         {
 
             if (rewriteBrains && File.Exists(FullBrainPath))
             {
-                Log.Info($"Remove old brain file named {SubRedditName}.brain");
+                logger.Info($"Remove old brain file named {SubRedditName}.brain");
                 File.Delete(FullBrainPath);
             }
 
-            Directory.CreateDirectory(OutputPath + GeneratorSettings.ReplyDefaultPath);
+            Directory.CreateDirectory(OutputPath + GeneratorSettings.BrainDefaultPath);
             
             if (File.Exists(FullBrainPath))
             {
-                Log.Info($"File {SubRedditName}.brain already exists!");
+                logger.Info($"File {SubRedditName}.brain already exists!");
                 return false;
             }
 
             try
             {
                 DateTime time = DateTime.Now;
-                Log.Action("Learning....");
+                logger.Action("Learning....");
 
                 FileInfo brainFile = new FileInfo(FullBrainPath);
                 Brain.Init(FullBrainPath, order: 2);
@@ -149,7 +151,7 @@ namespace RedditAnswerGenerator.Services
                         totalCount += comments.Count;
                         brainFile = new FileInfo(FullBrainPath);
                         sizeCount = brainFile.Length;
-                        Log.Info($"Comment after settings {comments.Count}");
+                        logger.Info($"Comment after settings {comments.Count}");
                     }
                     else
                     {
@@ -157,15 +159,15 @@ namespace RedditAnswerGenerator.Services
                     }
                 }
 
-                Log.Info($"Learn ended! File {SubRedditName}.brain created! Total commentary count {totalCount}");
-                Log.Info($"File size: {sizeCount} bytes");
-                Log.Info($"Total time spend: {(DateTime.Now - time).ToString().Pastel(Color.Coral)}");
+                logger.Info($"Learn ended! File {SubRedditName}.brain created! Total commentary count {totalCount}");
+                logger.Info($"File size: {sizeCount} bytes");
+                logger.Info($"Total time spend: {(DateTime.Now - time).ToString().Pastel(Color.Coral)}");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.Info($"Learn faild! File {SubRedditName}.brain not created!");
-                Log.Error(ex);
+                logger.Info($"Learn faild! File {SubRedditName}.brain not created!");
+                logger.Error(ex);
                 return false;
             }
 

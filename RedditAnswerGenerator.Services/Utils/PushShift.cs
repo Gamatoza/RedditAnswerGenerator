@@ -53,6 +53,7 @@ namespace RedditAnswerGenerator.Services.Utils
 
     public class PushShiftSearch
     {
+        Logger logger;
         #region Private SearchSettings
         private string _before { get; set; }
         private string _after { get; set; }
@@ -77,13 +78,14 @@ namespace RedditAnswerGenerator.Services.Utils
         {
             subRedditNamePart = reddit;
             Loginning = logs;
+            logger = new Logger(reddit);
         }
 
         private List<T> GetJsonResult<T>(string fullUrl)
         {
             if (Loginning)
             {
-                Log.Info($"pushshift-url: {fullUrl}");
+                logger.Info($"pushshift-url: {fullUrl}");
             }
             var client = new RestClient();
             var request = new RestRequest(fullUrl, Method.Get);
@@ -107,14 +109,14 @@ namespace RedditAnswerGenerator.Services.Utils
             {
                 if (Loginning)
                 {
-                    Log.Error($"Reddit not found \n{ex.Message}=>{ex.StackTrace}");
+                    logger.Error($"Reddit not found \n{ex.Message}=>{ex.StackTrace}");
                 }
             }
             catch (Exception ex)
             {
                 if (Loginning)
                 {
-                    Log.Error($"{ex.Message}=>{ex.StackTrace}");
+                    logger.Error($"{ex.Message}=>{ex.StackTrace}");
                 }
             }
             
@@ -125,7 +127,7 @@ namespace RedditAnswerGenerator.Services.Utils
         {
             if (Loginning)
             {
-                Log.Info("Getting subreddit info");
+                logger.Info("Getting subreddit info");
             }
 
             var list = GetJsonResult<PushShiftRedditResult>(subRedditSearch);
@@ -154,7 +156,7 @@ namespace RedditAnswerGenerator.Services.Utils
 
             if (Loginning)
             {
-                Log.Info("Getting comments info");
+                logger.Info("Getting comments info");
             }
 
             var list = GetJsonResult<PushShiftCommentResult>(commentSearch);
@@ -181,7 +183,7 @@ namespace RedditAnswerGenerator.Services.Utils
 
             if (Loginning)
             {
-                Log.Info($"Comment count on {subRedditNamePart} at {_after}: {list.Count}");
+                logger.Info($"Comment count on {subRedditNamePart} at {_after}: {list.Count}");
             }
 
             return list;

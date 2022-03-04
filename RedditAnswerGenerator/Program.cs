@@ -99,7 +99,7 @@ namespace RedditAnswerGenerator
                             {
                                 if (logsFlag)
                                 {
-                                    Log.Error("Subreddit was empty");
+                                    logger.Error("Subreddit was empty");
                                 }
                                 return -1;
                             }
@@ -114,7 +114,7 @@ namespace RedditAnswerGenerator
                             {
                                 if (logsFlag)
                                 {
-                                    Log.Error("Answer string was empty");
+                                    logger.Error("Answer string was empty");
                                 }
 
                                 return -1;
@@ -128,7 +128,7 @@ namespace RedditAnswerGenerator
                             {
                                 if (logsFlag)
                                 {
-                                    Log.Error("Answer string was empty");
+                                    logger.Error("Answer string was empty");
                                 }
                                 return -1;
                             }
@@ -156,7 +156,7 @@ namespace RedditAnswerGenerator
                         {
                             if (logsFlag)
                             {
-                                Log.Warning($"Wrong parameter {param}");
+                                logger.Warning($"Wrong parameter {param}");
                             }
                         }
                         break;
@@ -167,7 +167,7 @@ namespace RedditAnswerGenerator
             {
                 if (logsFlag)
                 {
-                    Log.Error("Subreddit is down or");
+                    logger.Error("Subreddit is down or");
                 }
                 return -1;
             }
@@ -178,7 +178,7 @@ namespace RedditAnswerGenerator
                 {
                     if (logsFlag)
                     {
-                        Log.Info($"-ro flag detected, remove old brain file named {subRedditName}.brain");
+                        logger.Info($"-ro flag detected, remove old brain file named {subRedditName}.brain");
                     }
 
                     if (File.Exists(fullBrainPath))
@@ -198,7 +198,7 @@ namespace RedditAnswerGenerator
                     {
                         if(logsFlag)
                         {
-                            Log.Action("Learning....");
+                            logger.Action("Learning....");
                         }
 
                         int i = 1;
@@ -230,20 +230,20 @@ namespace RedditAnswerGenerator
                             totalCount += comments.Count;
                             if (logsFlag)
                             {
-                                Log.Info($"Comment after settings {comments.Count}, count left to: {commentNeedCount - totalCount}");
+                                logger.Info($"Comment after settings {comments.Count}, count left to: {commentNeedCount - totalCount}");
                             }
                         }
                         if (logsFlag)
                         {
-                            Log.Info($"Learn ended! File {subRedditName}.brain created! Total commentary count {totalCount}");
-                            Log.Info($"Total time spend: {(DateTime.Now - time).ToString().Pastel(Color.Coral)}");
+                            logger.Info($"Learn ended! File {subRedditName}.brain created! Total commentary count {totalCount}");
+                            logger.Info($"Total time spend: {(DateTime.Now - time).ToString().Pastel(Color.Coral)}");
                         }
                     }
                     catch (Exception ex)
                     {
                         if (logsFlag)
                         {
-                            Log.Error(ex);
+                            logger.Error(ex);
                         }
                         return -1;
                     }
@@ -252,7 +252,7 @@ namespace RedditAnswerGenerator
                 {
                     if (logsFlag)
                     {
-                        Log.Error("Brain file exists");
+                        logger.Error("Brain file exists");
                     }
                 }
             }
@@ -263,7 +263,7 @@ namespace RedditAnswerGenerator
                 {
                     if (logsFlag)
                     {
-                        Log.Action("Getting answer...");
+                        logger.Action("Getting answer...");
                     }
 
                     do
@@ -280,7 +280,7 @@ namespace RedditAnswerGenerator
                         {
                             if (logsFlag)
                             {
-                                Log.Error(ex);
+                                logger.Error(ex);
                             }
                         }
                     }
@@ -291,7 +291,7 @@ namespace RedditAnswerGenerator
                 {
                     if (logsFlag)
                     {
-                        Log.Error(ex);
+                        logger.Error(ex);
                     }
                     return -1;
                 }
