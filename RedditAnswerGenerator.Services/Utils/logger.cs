@@ -47,7 +47,7 @@ namespace RedditAnswerGenerator.Services.Utils
         public void Info(string message)
         {
 
-            var log = $"{$"INFO[{DateTime.Now}]".Pastel(Color.LightGreen)}: [{name}] {message}";
+            var log = $"{$"INFO[{DateTime.Now}]".Pastel(Color.LightGreen)}: [{name.Pastel(Color.Orange)}] {message}";
             Console.WriteLine(log);
             Append(log);
         }

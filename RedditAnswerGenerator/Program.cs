@@ -40,6 +40,7 @@ namespace RedditAnswerGenerator
             bool retryFlag = false;
             bool countFlag = false;
             PushShiftSearch search = null;
+            Logger logger = new Logger("noname");
 
             foreach (var param in argsv)
             {
@@ -95,6 +96,7 @@ namespace RedditAnswerGenerator
                     default:
                         if (subredditNameFlag)
                         {
+                            logger = new Logger(param);
                             if (string.IsNullOrEmpty(param))
                             {
                                 if (logsFlag)
@@ -210,7 +212,7 @@ namespace RedditAnswerGenerator
                             var comments = search
                                 .AvoidURL()
                                 .AvoidDeleted()
-                                .Size(GeneratorSettings.LearnCommentSize)
+                                .Size(500)
                                 .After(i + "d")
                                 .GetCommentsInfo()
                                 .LimitLength(GeneratorSettings.CommentLengthMin, GeneratorSettings.CommentLengthMax)

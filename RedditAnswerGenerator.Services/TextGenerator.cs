@@ -135,7 +135,7 @@ namespace RedditAnswerGenerator.Services
                     var comments = pushShift
                         .AvoidURL()
                         .AvoidDeleted()
-                        .Size(GeneratorSettings.LearnCommentSize)
+                        .Size(500)
                         .After(dayCount + "d")
                         .GetCommentsInfo()
                         .LimitLength(GeneratorSettings.CommentLengthMin, GeneratorSettings.CommentLengthMax)

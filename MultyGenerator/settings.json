@@ -1,7 +1,7 @@
 {
   "CommentLengthMin": 10,
   "CommentLengthMax": 60,
-  "LearnCommentSize": 500,
+  "LearnCommentCount": 10000,
   "LearnRecycleCount": 1000,
   "BrainDefaultPath": "Brains/",
   "ReplyDefaultPath": "Reply/"

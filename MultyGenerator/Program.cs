@@ -17,17 +17,17 @@ namespace MultyGenerator
             FileInfo file = new FileInfo("subs.txt");
             List<string> subReddits = File.ReadAllLines(file.FullName).ToList();
             int subredditIndex = 0;
-            int limit = 10;
+            int limit = 20;
             List<Task> tasks = new List<Task>();
-            while (subredditIndex < subReddits.Count)
+            while (tasks.Count < subReddits.Count)
             {
-                if (limit > 0)
+                if (limit > 0 && subredditIndex < subReddits.Count)
                 {
                     var task = new Task(async () =>
                     {
                         limit--;
                         TextGenerator generator = new TextGenerator(subReddits[subredditIndex++]);
-                        await generator.LearnAsync(LearnMode.ByCommentCount, 1000);
+                        await generator.LearnAsync(LearnMode.ByCommentCount, GeneratorSettings.LearnCommentCount);
                         limit++;
                     });
                     tasks.Add(task);

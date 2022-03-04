@@ -14,7 +14,7 @@ namespace RedditAnswerGenerator.Services
 
         public static int CommentLengthMin => configuration.GetValue<int>("CommentLengthMin");
         public static int CommentLengthMax => configuration.GetValue<int>("CommentLengthMax");
-        public static int LearnCommentSize => configuration.GetValue<int>("LearnCommentSize");
+        public static int LearnCommentCount => configuration.GetValue<int>("LearnCommentCount");
         public static int LearnRecycleCount => configuration.GetValue<int>("LearnRecycleCount");
         public static string BrainDefaultPath => configuration.GetValue<string>("BrainDefaultPath");
         public static string ReplyDefaultPath => configuration.GetValue<string>("ReplyDefaultPath");
