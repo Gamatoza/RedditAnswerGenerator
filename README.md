@@ -1,7 +1,7 @@
 # RedditAnswerGenerator
 Cobe used to get answer at some subreddit<br>
 Use flags to get answer by console and files
-## Flags
+## Flags to MainProject
 |Flag name| Param after | Need to |
 |----------------|:---------:|:----------------|
 -n or --name | subredditName | set the subreddit name to learn/answer 
@@ -12,3 +12,6 @@ Use flags to get answer by console and files
 --retry | retry count | program will retry get answer until he gets the exception and retry count not 0
 --logs | none | program will write logs
 -ro or --remove-after | none | (on develop) removes the file after learn/answer
+
+## MultyGenerator
+If u want just learn brains, add subbreddits (just names!) on subs.txt, and run multygenerator
