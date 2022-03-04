@@ -136,13 +136,14 @@ namespace RedditAnswerGenerator.Services
                         .AvoidURL()
                         .AvoidDeleted()
                         .Size(500)
-                        .After(dayCount + "d")
+                        .After(dayCount)
                         .GetCommentsInfo()
                         .LimitLength(GeneratorSettings.CommentLengthMin, GeneratorSettings.CommentLengthMax)
                         .RemoveCharacters('\'', '`', '’')
                         .RemoveUnicodeCharacters()
                         .Distinct()
-                        .Select(item => item.body).ToList();
+                        .Select(item => item.body)
+                        .Where(item => !string.IsNullOrEmpty(item)).ToList();
 
                     if (comments.Any())
                     {

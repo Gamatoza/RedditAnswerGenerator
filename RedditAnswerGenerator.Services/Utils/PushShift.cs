@@ -196,7 +196,7 @@ namespace RedditAnswerGenerator.Services.Utils
             while(i < count)
             {
                 resultList.AddRange(GetCommentsInfo());
-                After(++i + "d");
+                After(++i);
             }
             
             return resultList;
@@ -219,15 +219,16 @@ namespace RedditAnswerGenerator.Services.Utils
             return parts;
         }
 
-        public PushShiftSearch Before(string before)
+        public PushShiftSearch Before(int days)
         {
-            _before = "&before=" + before;
+            
+            _before = "&before=" + days + "d";
             return this;
         }
 
-        public PushShiftSearch After(string after)
+        public PushShiftSearch After(int days)
         {
-            _after = "&after=" + after;
+            _after = "&after=" + days + "d";
             return this;
         }
 

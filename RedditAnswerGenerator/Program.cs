@@ -18,7 +18,6 @@ namespace RedditAnswerGenerator
 {
     public class Program
     {
-
         private static string fullBrainPath => (path ?? GeneratorSettings.BrainDefaultPath) + subRedditName + ".brain";
         private static string fullReplyPath => (path ?? GeneratorSettings.ReplyDefaultPath) + subRedditName + "_reply.txt";
         private static string? subRedditName { get; set; }
@@ -213,7 +212,8 @@ namespace RedditAnswerGenerator
                                 .AvoidURL()
                                 .AvoidDeleted()
                                 .Size(500)
-                                .After(i + "d")
+                                .Before(i)
+                                .After(i+2)
                                 .GetCommentsInfo()
                                 .LimitLength(GeneratorSettings.CommentLengthMin, GeneratorSettings.CommentLengthMax)
                                 .RemoveCharacters('\'', '`', '’')

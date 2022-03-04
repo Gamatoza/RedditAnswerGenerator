@@ -14,6 +14,7 @@ namespace MultyGenerator
     {
         static void Main(string[] args)
         {
+            Console.Title = "MultyGenerator";
             FileInfo file = new FileInfo("subs.txt");
             List<string> subReddits = File.ReadAllLines(file.FullName).ToList();
             int subredditIndex = 0;
@@ -35,9 +36,10 @@ namespace MultyGenerator
                 }
                 else
                 {
-                   Task.WhenAny(tasks).Wait();
+                    Task.WhenAny(tasks).Wait();
+                    Thread.Sleep(9000);
                 }
-                Thread.Sleep(3000);
+                Thread.Sleep(1000);
             }
         }
     }

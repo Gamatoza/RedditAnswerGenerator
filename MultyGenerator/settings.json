@@ -1,6 +1,6 @@
 {
   "CommentLengthMin": 10,
-  "CommentLengthMax": 60,
+  "CommentLengthMax": 200,
   "LearnCommentCount": 10000,
   "LearnRecycleCount": 1000,
   "BrainDefaultPath": "Brains/",
