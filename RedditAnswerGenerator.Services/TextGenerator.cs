@@ -151,7 +151,7 @@ namespace RedditAnswerGenerator.Services
                         totalCount += comments.Count;
                         brainFile = new FileInfo(FullBrainPath);
                         sizeCount = brainFile.Length;
-                        logger.Info($"Comment after settings {comments.Count}");
+                        logger.Info($"Comment after settings {comments.Count}, total: {totalCount}");
                     }
                     else
                     {

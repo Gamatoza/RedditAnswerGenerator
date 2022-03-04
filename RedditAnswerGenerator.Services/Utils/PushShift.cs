@@ -364,7 +364,7 @@ namespace RedditAnswerGenerator.Services.Utils
         {
             foreach (var item in obj)
             {
-                item.body = System.Text.Encoding.ASCII.GetString(System.Text.Encoding.ASCII.GetBytes(item.body));
+                item.body = Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(item.body));
             }
             return obj;
         }
