@@ -8,11 +8,12 @@ namespace MultyGenerator
         static AppSettings()
         {
             configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("settings.json")
                 .Build(); 
         }
 
         public static int LimitThreadCount => configuration.GetValue<int>("LimitThreadCount");
-        
+        public static bool RewriteBrains => configuration.GetValue<bool>("RewriteBrains");
+
     }
 }

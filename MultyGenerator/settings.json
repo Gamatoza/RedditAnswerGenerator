@@ -4,5 +4,7 @@
   "LearnCommentCount": 10000,
   "LearnRecycleCount": 1000,
   "BrainDefaultPath": "Brains/",
-  "ReplyDefaultPath": "Reply/"
+  "ReplyDefaultPath": "Reply/",
+  "LimitThreadCount": 20,
+  "RewriteBrains": false
 }

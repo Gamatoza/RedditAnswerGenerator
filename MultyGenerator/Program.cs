@@ -28,7 +28,7 @@ namespace MultyGenerator
                     {
                         limit--;
                         TextGenerator generator = new TextGenerator(subReddits[subredditIndex++]);
-                        await generator.LearnAsync(LearnMode.ByCommentCount, GeneratorSettings.LearnCommentCount);
+                        await generator.LearnAsync(LearnMode.ByCommentCount, GeneratorSettings.LearnCommentCount, AppSettings.RewriteBrains);
                         limit++;
                     });
                     tasks.Add(task);
