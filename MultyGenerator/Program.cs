@@ -16,7 +16,7 @@ namespace MultyGenerator
         {
             Console.Title = "MultyGenerator";
             FileInfo file = new FileInfo("subs.txt");
-            List<string> subReddits = File.ReadAllLines(file.FullName).ToList();
+            List<string> subReddits = File.ReadAllLines(file.FullName).Where(sub => !string.IsNullOrEmpty(sub)).ToList();
             int subredditIndex = 0;
             int limit = AppSettings.LimitThreadCount;
             List<Task> tasks = new List<Task>();
