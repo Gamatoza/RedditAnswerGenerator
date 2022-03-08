@@ -8,7 +8,7 @@ namespace MultyGenerator
         static AppSettings()
         {
             configuration = new ConfigurationBuilder()
-                .AddJsonFile("settings.json")
+                .AddJsonFile("appsettings.json")
                 .Build(); 
         }
 

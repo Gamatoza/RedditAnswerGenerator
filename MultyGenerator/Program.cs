@@ -24,12 +24,11 @@ namespace MultyGenerator
             {
                 if (limit > 0 && subredditIndex < subReddits.Count)
                 {
+                    limit--;
                     var task = new Task(async () =>
                     {
-                        limit--;
                         TextGenerator generator = new TextGenerator(subReddits[subredditIndex++]);
                         await generator.LearnAsync(LearnMode.ByCommentCount, GeneratorSettings.LearnCommentCount, AppSettings.RewriteBrains);
-                        limit++;
                     });
                     tasks.Add(task);
                     task.Start();
